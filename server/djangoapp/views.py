@@ -86,13 +86,17 @@ def registration(request):
     })
 
 def get_dealerships(request, state="All"):
-
     if state == "All":
         endpoint = "/fetchDealers"
     else:
         endpoint = "/fetchDealers/" + state
 
+    print("Calling endpoint:", endpoint)
+
     dealerships = get_request(endpoint)
+
+    print("Type:", type(dealerships))
+    print("Response:", dealerships)
 
     return JsonResponse({
         "status": 200,
