@@ -29,13 +29,11 @@ const Dealer = () => {
       method: "GET"
     });
     const retobj = await res.json();
-    
-    if(retobj.status === 200) {
-      let dealerobjs = Array.from(retobj.dealer)
-      setDealer(dealerobjs[0])
-    }
-  }
 
+    if (retobj.status === 200) {
+        setDealer(retobj.dealer);
+    }
+  };
   const get_reviews = async ()=>{
     const res = await fetch(reviews_url, {
       method: "GET"
@@ -70,13 +68,18 @@ const Dealer = () => {
 return(
   <div style={{margin:"20px"}}>
       <Header/>
-      <div style={{marginTop:"10px"}}>
-      <h1 style={{color:"grey"}}>{dealer.full_name}{postReview}</h1>
-      <h4  style={{color:"grey"}}>{dealer['city']},{dealer['address']}, Zip - {dealer['zip']}, {dealer['state']} </h4>
-      </div>
-      <div class="reviews_panel">
+      <div style={{ marginTop: "10px" }}>
+  <h1 style={{ color: "grey" }}>
+    {dealer?.full_name || "Loading..."} {postReview}
+  </h1>
+
+  <h4 style={{ color: "grey" }}>
+    {dealer?.city}, {dealer?.address}, Zip - {dealer?.zip}, {dealer?.state}
+  </h4>
+</div>
+      <div className="reviews_panel">
       {reviews.length === 0 && unreviewed === false ? (
-        <text>Loading Reviews....</text>
+        <p>Loading Reviews....</p>
       ):  unreviewed === true? <div>No reviews yet! </div> :
       reviews.map(review => (
         <div className='review_panel'>

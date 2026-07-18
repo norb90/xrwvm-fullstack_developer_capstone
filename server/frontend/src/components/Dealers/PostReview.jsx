@@ -62,18 +62,18 @@ const PostReview = () => {
   }
 
   }
-  const get_dealer = async ()=>{
+  const get_dealer = async () => {
     const res = await fetch(dealer_url, {
       method: "GET"
     });
+  
     const retobj = await res.json();
-    
-    if(retobj.status === 200) {
-      let dealerobjs = Array.from(retobj.dealer)
-      if(dealerobjs.length > 0)
-        setDealer(dealerobjs[0])
+  
+    if (retobj.status === 200) {
+      setDealer(retobj.dealer);
     }
-  }
+
+  };
 
   const get_cars = async ()=>{
     const res = await fetch(carmodels_url, {
