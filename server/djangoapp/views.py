@@ -112,8 +112,12 @@ def get_dealer_reviews(request, dealer_id):
         reviews = get_request(endpoint)
 
         for review in reviews:
-            sentiment = analyze_review_sentiments(review["review"])
-            review["sentiment"] = sentiment["sentiment"]
+         sentiment = analyze_review_sentiments(review["review"])
+
+    if sentiment and "sentiment" in sentiment:
+        review["sentiment"] = sentiment["sentiment"]
+    else:
+        review["sentiment"] = "neutral"
 
         return JsonResponse({
             "status": 200,
